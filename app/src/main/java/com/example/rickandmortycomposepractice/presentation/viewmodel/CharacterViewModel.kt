@@ -2,8 +2,9 @@ package com.example.rickandmortycomposepractice.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rickandmortycomposepractice.data.model.Character
-import com.example.rickandmortycomposepractice.data.repository.CharacterRepository
+import com.example.rickandmortycomposepractice.domain.model.Character
+import com.example.rickandmortycomposepractice.domain.repository.CharacterRepository
+import com.example.rickandmortycomposepractice.data.repository.CharacterRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,9 +19,10 @@ data class CharactersUiState(
     val selectedCharacter: Character? = null
 )
 
-class CharacterViewModel : ViewModel() {
+class CharacterViewModel(
+    private val repository: CharacterRepository = CharacterRepositoryImpl()
+) : ViewModel() {
 
-    private val repository = CharacterRepository()
     private val _uiState = MutableStateFlow(CharactersUiState())
     val uiState: StateFlow<CharactersUiState> = _uiState.asStateFlow()
 

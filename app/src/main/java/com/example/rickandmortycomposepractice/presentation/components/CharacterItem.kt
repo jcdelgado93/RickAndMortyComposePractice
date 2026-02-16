@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.rickandmortycomposepractice.data.model.Character // Ajusta el import si moviste el paquete
+import com.example.rickandmortycomposepractice.domain.model.Character // Ajusta el import si moviste el paquete
 
 @Composable
 fun CharacterItem(

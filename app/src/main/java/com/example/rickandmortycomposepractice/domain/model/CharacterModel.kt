@@ -1,4 +1,4 @@
-package com.example.rickandmortycomposepractice.data.model
+package com.example.rickandmortycomposepractice.domain.model
 
 import com.google.gson.annotations.SerializedName
 

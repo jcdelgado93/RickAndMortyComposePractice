@@ -1,7 +1,7 @@
 package com.example.rickandmortycomposepractice.data.network
 
-import com.example.rickandmortycomposepractice.data.model.CharacterResponse
-import com.example.rickandmortycomposepractice.data.model.Character
+import com.example.rickandmortycomposepractice.domain.model.CharacterResponse
+import com.example.rickandmortycomposepractice.domain.model.Character
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
