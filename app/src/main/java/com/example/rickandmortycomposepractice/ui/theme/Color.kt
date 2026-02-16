@@ -2,10 +2,17 @@ package com.example.rickandmortycomposepractice.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Tema Claro (Radioactivo)
+val RickGreen = Color(0xFF97CE4C)
+val RickGreenDark = Color(0xFF689F38)
+val MortyYellow = Color(0xFFFFF176)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Tema Oscuro (Espacial)
+val SpacePurple = Color(0xFF240046)
+val SpaceDark = Color(0xFF120024)
+val PortalMagenta = Color(0xFFE040FB)
+val PortalMagentaDark = Color(0xFFAA00FF)
+
+// Colores base
+val White = Color(0xFFFFFFFF)
+val Black = Color(0xFF000000)

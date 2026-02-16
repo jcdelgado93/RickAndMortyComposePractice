@@ -2,4 +2,11 @@
 <resources>
 
     <style name="Theme.RickAndMortyComposePractice" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#66FABC</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_composite_logo</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
+        <item name="postSplashScreenTheme">@style/Theme.RickAndMortyComposePractice</item>
+    </style>
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -25,18 +26,19 @@ fun CharacterItem(
             .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 model = character.image,
                 contentDescription = "Image of ${character.name}",
                 modifier = Modifier
-                    .size(80.dp)
+                    .fillMaxHeight()
                     .padding(end = 16.dp),
                 contentScale = ContentScale.Crop
             )
@@ -49,7 +51,7 @@ fun CharacterItem(
                 Text(
                     text = character.status,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if (character.status == "Alive") MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                    color = if (character.status == "Alive") Color(0xFF4CAF50) else Color(0xFFE91E63)
                 )
             }
         }

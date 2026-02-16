@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    // UI & Imagenes
+    // UI & Images
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
 
@@ -69,4 +69,7 @@ dependencies {
 
     // Icons
     implementation(libs.androidx.compose.material.icons.extended)
+
+    // Splash screen
+    implementation(libs.androidx.core.splashscreen)
 }

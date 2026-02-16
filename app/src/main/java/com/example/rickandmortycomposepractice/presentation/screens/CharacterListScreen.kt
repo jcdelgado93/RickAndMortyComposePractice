@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rickandmortycomposepractice.presentation.viewmodel.CharacterViewModel
 import com.example.rickandmortycomposepractice.presentation.components.CharacterItem
+import com.example.rickandmortycomposepractice.presentation.components.ShimmerCharacterItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,18 +39,36 @@ fun CharacterListScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                SearchBar(
-                    query = uiState.searchTerm,
-                    onQueryChange = { viewModel.searchCharacters(it) },
-                    onSearch = { viewModel.searchCharacters(it) },
-                    active = false,
-                    onActiveChange = {},
-                    placeholder = { Text("Buscar...") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                TextField(
+                    value = uiState.searchTerm,
+                    onValueChange = { viewModel.searchCharacters(it) },
+                    placeholder = { Text("Buscar...", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)) },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    },
                     modifier = Modifier
                         .weight(1f)
-                        .height(56.dp)
-                ) {}
+                        .height(56.dp),
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(28.dp),
+                    singleLine = true,
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.surface,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        disabledContainerColor = MaterialTheme.colorScheme.surface,
+
+                        focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        disabledIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+
+                        cursorColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                )
 
                 Spacer(modifier = Modifier.width(8.dp))
 
@@ -58,10 +77,11 @@ fun CharacterListScreen(
                     modifier = Modifier.size(56.dp),
                     shape = androidx.compose.foundation.shape.CircleShape,
                     colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                        containerColor = MaterialTheme.colorScheme.surface
                     )
                 ) {
-                    val icon = if (uiState.isGridView) Icons.AutoMirrored.Filled.List else Icons.Default.GridView
+                    val icon =
+                        if (uiState.isGridView) Icons.AutoMirrored.Filled.List else Icons.Default.GridView
 
                     Icon(
                         imageVector = icon,
@@ -73,8 +93,12 @@ fun CharacterListScreen(
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
-            if (uiState.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.fillMaxSize().wrapContentSize())
+            if (uiState.isLoading && uiState.characters.isEmpty()) {
+                LazyColumn(contentPadding = PaddingValues(8.dp)) {
+                    items(10) {
+                        ShimmerCharacterItem()
+                    }
+                }
             } else {
                 if (uiState.isGridView) {
                     LazyVerticalGrid(
@@ -89,7 +113,7 @@ fun CharacterListScreen(
                         }
                     }
                 } else {
-                        LazyColumn(
+                    LazyColumn(
                         contentPadding = PaddingValues(8.dp)
                     ) {
                         items(uiState.characters) { character ->
