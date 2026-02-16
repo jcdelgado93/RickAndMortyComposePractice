@@ -55,4 +55,18 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Networking (API)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // UI & Imagenes
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.navigation.compose)
+
+    // Debugging
+    debugImplementation(libs.androidx.ui.tooling)
+
+    // Icons
+    implementation(libs.androidx.compose.material.icons.extended)
 }
