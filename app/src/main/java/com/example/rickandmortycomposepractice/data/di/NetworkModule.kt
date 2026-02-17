@@ -24,7 +24,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideCharacterRepository(retrofit : Retrofit) : RickAndMortyApi {
+    fun provideRickAndMortyApiService(retrofit : Retrofit) : RickAndMortyApi {
         return retrofit.create(RickAndMortyApi::class.java)
     }
 }

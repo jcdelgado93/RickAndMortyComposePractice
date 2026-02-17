@@ -30,7 +30,6 @@ fun CharacterDetailScreen(
     characterId: Int,
     onBackClick: () -> Unit
 ) {
-
     val viewModel: CharacterViewModel = hiltViewModel()
 
     LaunchedEffect(Unit) {
