@@ -3,7 +3,8 @@ package com.example.rickandmortycomposepractice.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortycomposepractice.domain.model.Character
-import com.example.rickandmortycomposepractice.domain.repository.CharacterRepository
+import com.example.rickandmortycomposepractice.domain.usecase.GetCharactersByIdUseCase
+import com.example.rickandmortycomposepractice.domain.usecase.GetCharactersByNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,7 +23,8 @@ data class CharactersUiState(
 
 @HiltViewModel
 class CharacterViewModel @Inject constructor(
-    private val repository: CharacterRepository
+    private val getCharactersByNameUseCase: GetCharactersByNameUseCase,
+    private val getCharactersByIdUseCase: GetCharactersByIdUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CharactersUiState())
@@ -37,7 +39,7 @@ class CharacterViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val characterResults = repository.getCharacters(query)
+                val characterResults = getCharactersByNameUseCase(query)
                 _uiState.update {
                     it.copy(
                         characters = characterResults.results,
@@ -58,7 +60,7 @@ class CharacterViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = true, selectedCharacter = null) }
 
         viewModelScope.launch {
-            val character = repository.getCharacterById(id)
+            val character = getCharactersByIdUseCase(id)
 
             _uiState.update {
                 it.copy(
