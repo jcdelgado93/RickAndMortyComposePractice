@@ -1,9 +1,9 @@
 package com.example.rickandmortycomposepractice.domain.repository
 
-import com.example.rickandmortycomposepractice.data.entity.CharacterEntity
-import com.example.rickandmortycomposepractice.data.entity.CharacterResponseEntity
+import com.example.rickandmortycomposepractice.domain.model.Character
+import com.example.rickandmortycomposepractice.domain.model.CharacterResponse
 
 interface CharacterRepository {
-    suspend fun getCharacters(name: String): CharacterResponseEntity
-    suspend fun getCharacterById(id: Int): CharacterEntity?
+    suspend fun getCharacters(name: String): CharacterResponse
+    suspend fun getCharacterById(id: Int): Character?
 }
