@@ -1,49 +1,62 @@
-# Rick & Morty Explorer 🛸
+# Rick & Morty Showcase App 🧪
 
-A modern, native Android application built with **Jetpack Compose** and **Clean Architecture** principles to demonstrate scalable development practices.
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
+![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-4285F4?style=for-the-badge&logo=jetpack-compose&logoColor=white)
 
-## 🎯 Project Overview
+Native Android application developed as a **Proof of Concept (PoC)** to demonstrate modern, scalable, and reactive architectural patterns. The project strictly follows **Clean Architecture** principles and the **Offline-First** paradigm.
 
-This project serves as a technical showcase of a production-ready architecture for a character exploration app consuming the [Rick and Morty API](https://rickandmortyapi.com/).
+## 🏗️ Architecture & Tech Stack
 
-It was designed to highlight:
-* **Modern UI:** 100% Jetpack Compose implementation with Material 3.
-* **Performance:** Efficient state management using Coroutines & StateFlow.
-* **Scalability:** Separation of concerns using MVVM and Clean Architecture layering.
-* **UX Details:** Custom animations, Shimmer loading effects, and edge-to-edge immersive design.
+The project is modularized by layers following SOLID principles:
 
-## 🛠 Tech Stack & Libraries
+* **Language:** Kotlin (100%).
+* **UI:** Jetpack Compose (Modern Declarative UI).
+* **Architecture:** Clean Architecture (Presentation, Domain, Data) + MVVM.
+* **Dependency Injection:** Dagger Hilt.
+* **Network:** Retrofit2 + Gson.
+* **Local Persistence (Offline-First):** Room Database + TypeConverters.
+* **Concurrency:** Kotlin Coroutines + Flows.
+* **Images:** Coil.
 
-* **Language:** Kotlin (100%)
-* **UI Toolkit:** [Jetpack Compose](https://developer.android.com/jetpack/compose) (Material 3)
-* **Architecture:** MVVM + Clean Architecture (Data / Domain / Presentation)
-* **Asynchronous:** [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) & [Flow](https://kotlinlang.org/docs/flow.html)
-* **Network:** [Retrofit](https://square.github.io/retrofit/) & [OkHttp](https://square.github.io/okhttp/)
-* **Image Loading:** [Coil](https://coil-kt.github.io/coil/)
-* **Navigation:** [Navigation Compose](https://developer.android.com/jetpack/compose/navigation)
-* **Dependency Injection:** Manual Dependency Injection (Singleton Pattern) for MVP agility.
+## 🚀 Key Features (Showcase)
 
-## ✨ Key Features
+### 1. Offline-First (Single Source of Truth)
+The application implements a strict **"Single Source of Truth"** pattern. The UI never consumes data directly from the API.
+1.  Data is fetched from the API (Retrofit).
+2.  Immediately persisted into the local database (Room).
+3.  The UI reactively observes the database via `Flows`.
+*This guarantees the app functions seamlessly without an internet connection once data has been cached.*
 
-1.  **Immersive UI (Edge-to-Edge):** The detail screen draws behind system bars for a premium visual experience.
-2.  **Reactive State Management:**
-    * Uses `StateFlow` to expose UI states (`Loading`, `Success`, `Error`).
-    * Prevents "white flashes" during navigation by persisting list state.
-3.  **Optimized Search:** Implements a custom search logic with real-time filtering.
-4.  **Polished UX:**
-    * **Shimmer Effect:** Skeleton loading state instead of generic spinners.
-    * **Transitions:** Slide-in/Slide-out animations between screens.
-    * **Theming:** Custom "Radioactive Light" and "Deep Space Dark" themes with dynamic color disabled for brand consistency.
-5.  **Smart Error Handling:** Graceful degradation when data fetching fails.
+### 2. Granular State Management
+Simplified **MVI (Model-View-Intent)** implementation using typed `UiStates`.
+* **Separation of Concerns:** Specialized ViewModels (`ListViewModel` vs `DetailViewModel`).
+* **State Handling:** Type-safe handling of Loading, Success, and Error states.
 
-## 📂 Project Structure
+### 3. Complex Data Persistence
+Advanced usage of **Room TypeConverters** to serialize and persist complex nested objects (such as `Origin` and `Location`) and lists, overcoming SQLite's relational limitations without compromising the domain model integrity.
+
+### 4. Modern UI/UX
+* **Hero Animations:** Immersive design pattern in the Character Detail screen.
+* **Navigation:** Jetpack Navigation Compose.
+* **Reusable Components:** Atomic UI component architecture (Shimmer Effects, Data Rows, Cards).
+
+## 🛠️ Project Structure
 
 ```text
 com.example.rickandmorty
-├── data             # Repository implementation and Data Sources (API)
-├── domain           # Business logic (Models and Repository Interfaces)
-├── presentation     # UI Layer (Screens, ViewModels, Components, Theme)
-│   ├── components   # Reusable Composables (CharacterItem, Shimmer, etc.)
-│   ├── screens      # Feature screens (List, Detail)
-│   └── theme        # Type, Color, and Theme definitions
-└── MainActivity.kt  # Entry point and Navigation Host
+├── data                # Data Layer (Repositories, API, Room DTOs)
+│   ├── local           # Database, DAO, Entities, Converters
+│   ├── remote          # API Interface, Network DTOs
+│   └── repository      # Repository Implementation (Single Source of Truth Logic)
+├── domain              # Domain Layer (Pure Business Rules)
+│   ├── model           # Agnostic Data Models
+│   ├── repository      # Repository Interfaces
+│   └── usecase         # Use Cases (Interactors)
+├── di                  # Hilt Modules (AppModule, DataModule, etc.)
+└── presentation        # UI Layer (Compose)
+    ├── components      # Reusable Composables
+    ├── navigation      # Navigation Graph
+    ├── screens         # Screens (List, Detail)
+    ├── state           # UiStates (View State Data Classes)
+    └── viewmodel       # ViewModels (ListViewModel, DetailViewModel)
