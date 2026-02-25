@@ -60,3 +60,13 @@ com.example.rickandmorty
     ├── screens         # Screens (List, Detail)
     ├── state           # UiStates (View State Data Classes)
     └── viewmodel       # ViewModels (ListViewModel, DetailViewModel)
+
+🚧 Roadmap / Next Steps
+[x] Base Implementation (Clean Arch + MVVM)
+[x] Offline Persistence (Room)
+[x] Detail UI with Complex Data
+[ ] Advanced Pagination (RemoteMediator + Paging3)
+[ ] Unit Testing (JUnit + Mockk)
+[ ] UI Tests (Compose Test)
+
+Developed by [Julio Delgado] - 2026
