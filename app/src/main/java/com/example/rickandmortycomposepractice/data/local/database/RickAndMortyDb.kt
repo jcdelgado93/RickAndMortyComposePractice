@@ -10,7 +10,7 @@ import com.example.rickandmortycomposepractice.data.local.entity.CharacterEntity
 @Database(
     entities = [CharacterEntity::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class RickAndMortyDb : RoomDatabase() {

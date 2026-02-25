@@ -18,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.example.rickandmortycomposepractice.presentation.viewmodel.CharacterViewModel
 import com.example.rickandmortycomposepractice.presentation.components.CharacterItem
 import com.example.rickandmortycomposepractice.presentation.components.ShimmerCharacterItem
+import com.example.rickandmortycomposepractice.presentation.viewmodel.CharacterListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +28,7 @@ fun CharacterListScreen(
     onCharacterClick: (Int) -> Unit
 ) {
 
-    val viewModel: CharacterViewModel = hiltViewModel()
+    val viewModel: CharacterListViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
