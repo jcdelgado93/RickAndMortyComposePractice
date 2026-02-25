@@ -40,7 +40,7 @@ class CharacterViewModel @Inject constructor(
                 getAllCharactersUseCase().collect { response ->
                     _uiState.update {
                         it.copy(
-                            characters = response.results,
+                            characters = response,
                             isLoading = false
                         )
                     }
@@ -65,7 +65,7 @@ class CharacterViewModel @Inject constructor(
                 getCharactersByNameUseCase(query).collect { response ->
                     _uiState.update {
                         it.copy(
-                            characters = response.results,
+                            characters = response,
                             isLoading = false
                         )
                     }

@@ -2,12 +2,10 @@ package com.example.rickandmortycomposepractice.data.repository
 
 import android.util.Log
 import com.example.rickandmortycomposepractice.data.local.dao.CharacterDao
-import com.example.rickandmortycomposepractice.data.local.entity.CharacterEntity
 import com.example.rickandmortycomposepractice.data.local.entity.toCharacterDomain
 import com.example.rickandmortycomposepractice.data.remote.api.RickAndMortyApi
 import com.example.rickandmortycomposepractice.data.remote.dto.toCharacterEntity
 import com.example.rickandmortycomposepractice.domain.model.Character
-import com.example.rickandmortycomposepractice.domain.model.CharacterResponse
 import com.example.rickandmortycomposepractice.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,19 +17,17 @@ class CharacterRepositoryImpl @Inject constructor(
     private val api: RickAndMortyApi
 ) : CharacterRepository {
 
-    override fun getAllCharacters(): Flow<CharacterResponse> {
+    override fun getAllCharacters(): Flow<List<Character>> {
         return dao.getAllCharacters()
             .onStart { fetchAllCharactersFromApi() }
-            .map { entities ->
-            CharacterResponse(results = entities.map { it.toCharacterDomain() })
+            .map { entities -> entities.map { it.toCharacterDomain() }
         }
     }
 
-    override fun getCharactersByName(name: String): Flow<CharacterResponse> {
+    override fun getCharactersByName(name: String): Flow<List<Character>> {
         return dao.getCharactersByName(name)
             .onStart { fetchCharacterByNameFromApi(name) }
-            .map { entities ->
-            CharacterResponse(results = entities.map { it.toCharacterDomain() })
+            .map { entities -> entities.map { it.toCharacterDomain() }
         }
     }
 
